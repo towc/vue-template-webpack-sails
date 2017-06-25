@@ -1,3 +1,55 @@
+# Custom vue webpack-sails template
+
+assumes the following structure
+
+```
+app
+ - backend (sails new backend)
+   - assets
+     - index.html
+ - frontend (vue init towc/vue-template-webpack-sails frontend)
+```
+
+The `assets/index.html` can then be used for any purpose.
+
+Watching has been enabled with `aggregateTimeout: 0` and `poll: 100` for fast changing, without a hot reload. This means that after, ideally in a separate terminal, you can call `npm run build` and the various files in `backend/assets` will be automatically updated, so hard-refreshing the page is all that is needed, without having to run `sails lift` again.
+
+In order to call the file using different paths, it is recommended to use this structure in sails' `backend/config/routes.js`:
+
+```js
+const paths = [ '/', '/login', '/profile', ... ]
+    , vue = 'Vue.serve'
+    , pathObject = {};
+
+paths.map( path => pathObject[ path ] = vue );
+
+module.exports.routes = Object.assign( pathObject, {
+  
+  'post /api/stuff': 'Whatever.action'
+  ...
+});
+```
+
+Where `Vue` is just a controller (`sails generate controller vue`) to which a `serve` action is called in `backend/api/controllers/VueController.js`:
+
+```js
+const fs = require( 'fs' )
+    , vuePath = __dirname + '/../../assets/index.html';
+
+module.exports = {
+  serve( req, res ) {
+    fs.exists( vuePath, ( exists ) => {
+      if( !exists )
+        return res.notFound( 'Vue hasn\'t been built yet' );
+
+      fs.createReadStream( vuePath ).pipe( res );
+    })
+  }
+}
+```
+
+The rest of the readme is from the original [vuejs-templates/webpack](https://github.com/vuejs-templates/webpack)
+
 # vue-webpack-boilerplate
 
 > A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction.

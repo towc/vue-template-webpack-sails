@@ -8,6 +8,11 @@ function resolve (dir) {
 }
 
 module.exports = {
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 0,
+    poll: 100
+  },
   entry: {
     app: './src/main.js'
   },
