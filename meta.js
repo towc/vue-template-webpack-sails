@@ -47,7 +47,7 @@ module.exports = {
     "lint": {
       "type": "confirm",
       "message": "Use ESLint to lint your code?",
-      "default": "n"
+      "default": false
     },
     "lintConfig": {
       "when": "lint",
