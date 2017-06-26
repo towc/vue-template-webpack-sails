@@ -14,6 +14,8 @@ The `assets/index.html` can then be used for any purpose.
 
 Watching has been enabled with `aggregateTimeout: 0` and `poll: 100` for fast changing, without a hot reload. This means that after, ideally in a separate terminal, you can call `npm run build` and the various files in `backend/assets` will be automatically updated, so hard-refreshing the page is all that is needed, without having to run `sails lift` again.
 
+In addition, ESLint has been disabled by default due to it being buggy, so you can just press `ENTER` during the vue setup, but still change anything you might want. And finally `mode: 'history'` has been enabled by default on the vue-router
+
 In order to call the file using different paths, it is recommended to use this structure in sails' `backend/config/routes.js`:
 
 ```js
