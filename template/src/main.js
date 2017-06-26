@@ -8,6 +8,8 @@ import App from './App'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 import router from './router'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 {{/router}}
 
+import 'bulma/css/bulma.css'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+
 Vue.config.productionTip = false{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
 
 /* eslint-disable no-new */
